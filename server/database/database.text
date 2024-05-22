@@ -1,0 +1,83 @@
+-- Existing users table
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+);
+
+-- Existing tokens table
+CREATE TABLE `tokens` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `accessToken` text NOT NULL,
+  `refreshToken` text NOT NULL,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`),
+  CONSTRAINT `tokens_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE
+);
+
+-- New products table
+CREATE TABLE `products` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `imageUrl` text NOT NULL,
+  `priceDKK` decimal(10, 2) NOT NULL,
+  `team` varchar(255) NOT NULL,
+  `playerName` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- New product_sizes table
+CREATE TABLE `product_sizes` (
+  `product_id` int NOT NULL,
+  `size` enum('S', 'M', 'L') NOT NULL,
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE
+);
+
+-- New orders table
+CREATE TABLE `orders` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `orderDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+);
+
+-- New order_items table
+CREATE TABLE `order_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  `priceDKK` decimal(10, 2) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE
+);
+
+-- New addresses table
+CREATE TABLE `addresses` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `postalCode` varchar(10) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+);
+
+-- New order_addresses table
+CREATE TABLE `order_addresses` (
+  `order_id` int NOT NULL,
+  `address_id` int NOT NULL,
+  PRIMARY KEY (`order_id`, `address_id`),
+  FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`address_id`) REFERENCES `addresses`(`id`) ON DELETE CASCADE
+);

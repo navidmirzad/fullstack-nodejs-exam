@@ -16,7 +16,7 @@
   
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-2">
-      <img src="src/public/images/footyLogo.png" class="w-32 h-auto" alt="Footy Jersey Logo" />
+      <a href="/"><img src="src/public/images/footyLogo.png" class="w-32 h-auto" alt="Footy Jersey Logo" /> </a>
       <form class="w-2/3">   
         <label for="default-search" class="sr-only">Search</label>
         <div class="relative">
