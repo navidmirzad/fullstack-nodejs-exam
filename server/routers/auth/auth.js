@@ -9,7 +9,7 @@ import {
   getRefreshTokens,
   deleteRefreshToken,
   getUser,
-} from "../../database/database.js";
+} from "../../database/authQueries.js";
 import jwt from "jsonwebtoken";
 import {
   authenticateToken,

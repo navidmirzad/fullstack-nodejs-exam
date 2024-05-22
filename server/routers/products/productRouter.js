@@ -1,21 +1,15 @@
 import { Router } from "express";
+import { getJerseys } from "../../database/productQueries.js";
 const router = Router();
 
-const movies = [
-  {
-    id: 1,
-    name: "The Shawshank Redemption",
-    director: "Frank Darabont",
-  },
-  {
-    id: 2,
-    name: "The Godfather",
-    director: "Francis Ford Coppola",
-  },
-];
-
-router.get("/api/movies", (req, res) => {
-  res.send(movies);
+router.get("/api/jerseys", async (req, res) => {
+  try {
+    const jerseys = await getJerseys();
+    res.json(jerseys);
+  } catch (error) {
+    console.error("Error fetching jerseys:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 router.get("/api/:id", (req, res) => {
