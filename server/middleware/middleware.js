@@ -17,7 +17,7 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-  return jwt.sign(user, JWT_SECRET, { expiresIn: "15s" });
+  return jwt.sign(user, JWT_SECRET, { expiresIn: "15min" });
 }
 
 export { authenticateToken, generateAccessToken };
