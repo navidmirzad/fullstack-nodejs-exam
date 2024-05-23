@@ -10,13 +10,13 @@
       <li><a href="/contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
       <li><a href="/myAccount" class="text-gray-700 hover:text-blue-500">My Account</a></li>
       <li><a href="/wishlist" class="text-gray-700 hover:text-blue-500">Wishlist</a></li>
-      <li><a href="/checkout" class="text-gray-700 hover:text-blue-500"><img src="src/public/images/cart.png" class="w-8 h-auto" alt="shoppingCart" /></a></li>
+      <li><a href="/checkout" class="text-gray-700 hover:text-blue-500"><img src="/src/public/images/cart.png" class="w-8 h-auto" alt="shoppingCart" /></a></li>
     </ul>
   </div>
   
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-2">
-      <a href="/"><img src="src/public/images/footyLogo.png" class="w-32 h-auto" alt="Footy Jersey Logo" /> </a>
+      <a href="/"><img src="/src/public/images/footyLogo.png" class="w-32 h-auto" alt="Footy Jersey Logo" /> </a>
       <form class="w-2/3">   
         <label for="default-search" class="sr-only">Search</label>
         <div class="relative">
@@ -47,12 +47,11 @@
     <slot></slot>
   </main>
   
-  <!-- Fix Footer position when nothing is being displayed in Main before hand in -->
   <footer class="bottom-0 w-full bg-[#868686]">
     <div class="w-full px-8 mx-auto max-w-7xl">
       <div class="grid justify-between grid-cols-1 gap-4 md:grid-cols-2">
         <a href="/" class="block mb-6 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-inherit">
-          <img src="src/public/images/footyLogo.png" class="w-32 h-auto pt-6" alt="Footy Jersey Logo" />
+          <img src="/src/public/images/footyLogo.png" class="w-32 h-auto pt-6" alt="Footy Jersey Logo" />
         </a>
         <div class="grid justify-between grid-cols-3 gap-4 pt-6">
           <ul>

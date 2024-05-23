@@ -2,5 +2,8 @@
   "devDependencies": {
     "eslint": "^9.3.0",
     "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "svelte-routing": "^2.13.0"
   }
 }

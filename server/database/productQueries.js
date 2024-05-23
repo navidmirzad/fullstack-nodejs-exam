@@ -17,4 +17,11 @@ async function getJerseys() {
   return result;
 }
 
-export { pool, getJerseys };
+async function getJersey(id) {
+  const [result] = await pool.query("SELECT * FROM products WHERE id = ?", [
+    id,
+  ]);
+  return result[0];
+}
+
+export { pool, getJerseys, getJersey };

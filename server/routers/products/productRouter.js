@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getJerseys } from "../../database/productQueries.js";
+import { getJerseys, getJersey } from "../../database/productQueries.js";
 const router = Router();
 
 router.get("/api/jerseys", async (req, res) => {
@@ -12,8 +12,18 @@ router.get("/api/jerseys", async (req, res) => {
   }
 });
 
-router.get("/api/:id", (req, res) => {
-  // Add your code to fetch a specific product by ID
+router.get("/api/jerseys/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const jersey = await getJersey(id);
+    if (jersey) {
+      res.json(jersey);
+    } else {
+      res.status(404).json({ error: "Jersey not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch jersey" });
+  }
 });
 
 router.post("/api/", (req, res) => {
