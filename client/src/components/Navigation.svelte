@@ -1,18 +1,30 @@
 <script>
     import "../app.css"
+    import ShoppingCart from "../components/ShoppingCart.svelte"
+
+    let isCartOpen = false;
+
+    function toggleCartModal() {
+        isCartOpen = !isCartOpen;
+    }
+
 </script>
 
 <div class="w-full flex items-center justify-between bg-[#bbb] py-4 pr-52">
-    <a href="mailto:footyjersey@hotmail.com" class="contact-link pl-52">footyjersey@hotmail.com</a>
-    <ul class="flex space-x-4">
-      <li><a href="/" class="text-gray-700 hover:text-blue-500">Home</a></li>
-      <li><a href="/about" class="text-gray-700 hover:text-blue-500">About</a></li>
-      <li><a href="/contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
-      <li><a href="/myAccount" class="text-gray-700 hover:text-blue-500">My Account</a></li>
-      <li><a href="/wishlist" class="text-gray-700 hover:text-blue-500">Wishlist</a></li>
-      <li><a href="/checkout" class="text-gray-700 hover:text-blue-500"><img src="/src/public/images/cart.png" class="w-8 h-auto" alt="shoppingCart" /></a></li>
-    </ul>
-  </div>
+  <a href="mailto:footyjersey@hotmail.com" class="contact-link pl-52">footyjersey@hotmail.com</a>
+  <ul class="flex space-x-4">
+    <li><a href="/" class="text-gray-700 hover:text-blue-500">Home</a></li>
+    <li><a href="/about" class="text-gray-700 hover:text-blue-500">About</a></li>
+    <li><a href="/contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
+    <li><a href="/myAccount" class="text-gray-700 hover:text-blue-500">My Account</a></li>
+    <li><a href="/wishlist" class="text-gray-700 hover:text-blue-500">Wishlist</a></li>
+    <li><a href="/" on:click={toggleCartModal} class="text-gray-700 hover:text-blue-500"><img src="/src/public/images/cart.png" class="w-8 h-auto" alt="shoppingCart" /></a></li>
+  </ul>
+</div>
+
+{#if isCartOpen}
+  <ShoppingCart />
+{/if}
   
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-2">

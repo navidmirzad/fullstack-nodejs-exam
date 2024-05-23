@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { onMount } from 'svelte';
     import { navigate } from 'svelte-routing';
 
@@ -7,7 +7,7 @@
     onMount(() => {
         jwtToken = localStorage.getItem('jwtToken');
         if (jwtToken) {
-            navigate('http://localhost:5173//myAccount');
+            navigate('http://localhost:5173/myAccount');
         }
     });
 
@@ -28,11 +28,11 @@
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('jwtToken', data.token); // Save JWT token
-                navigate('/myAccount'); // Use navigate for consistency
+                localStorage.setItem('jwtToken', data.token); 
+                localStorage.setItem('refreshToken', data.refreshToken);
+                navigate('/myAccount'); 
             } else {
                 console.error('Login failed:', response.statusText);
-                // Display error message if needed
             }
         } catch (error) {
             console.error('Error logging in:', error);
@@ -59,3 +59,4 @@
         </form>
     </div>
 </div>
+ -->

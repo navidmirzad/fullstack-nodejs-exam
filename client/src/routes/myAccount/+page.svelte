@@ -7,14 +7,12 @@
 
     onMount(() => {
         const token = localStorage.getItem('jwtToken');
-        console.log('JWT Token from localStorage:', token);
         jwtToken.set(token);
         if (token) {
             checkToken(token);
         }
     });
 
-    /* Fix checkToken / entire auth is broken */
      async function checkToken(token) {
         try {
             const response = await fetch('http://localhost:8080/protected', {
@@ -26,15 +24,15 @@
 
             if (response.ok) {
                 const data = await response.json();
-                userInfo.set(data); // Assume the response contains user information
+                userInfo.set(data);
             } else {
-                /* localStorage.removeItem('jwtToken');
-                jwtToken.set(null); */
+                localStorage.removeItem('jwtToken');
+                jwtToken.set(null); 
             }
         } catch (error) {
             console.error('An error occurred:', error);
-            /* localStorage.removeItem('jwtToken');
-            jwtToken.set(null); */
+            localStorage.removeItem('jwtToken');
+            jwtToken.set(null); 
         }
     } 
 

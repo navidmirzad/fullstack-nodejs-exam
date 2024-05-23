@@ -49,7 +49,7 @@ router.post("/tokens", async (req, res) => {
 });
 
 router.get("/protected", authenticateToken, (req, res) => {
-  res.statusCode(200);
+  res.status(200);
 });
 
 router.post("/signup", async (req, res) => {

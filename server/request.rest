@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ###
-
+ 
 
 # POST /logout - Logout (no request body needed)
 DELETE http://localhost:8080/logout
