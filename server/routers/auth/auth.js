@@ -49,7 +49,7 @@ router.post("/tokens", async (req, res) => {
 });
 
 router.get("/protected", authenticateToken, (req, res) => {
-  res.status(200);
+  res.status(200).json({ email: req.user.email });
 });
 
 router.post("/signup", async (req, res) => {
@@ -115,7 +115,6 @@ router.post("/login", async (req, res) => {
 });
 
 router.delete("/logout", async (req, res) => {
-  // Invalidate token (delete it from the database) and redirect to login page
   const refreshToken = req.headers.authorization.split(" ")[1];
   if (!refreshToken) return res.sendStatus(401);
 

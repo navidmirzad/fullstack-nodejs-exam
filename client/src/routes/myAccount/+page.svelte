@@ -13,7 +13,7 @@
         }
     });
 
-     async function checkToken(token) {
+    async function checkToken(token) {
         try {
             const response = await fetch('http://localhost:8080/protected', {
                 method: 'GET',
@@ -64,15 +64,41 @@
             console.error('Error logging in:', error);
         }
     }
+
+    async function handleLogout(event) {
+    event.preventDefault();
+    
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    try {
+        const response = await fetch('http://localhost:8080/logout', {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${refreshToken}`
+            }
+        });
+
+        if (response.ok) {
+            jwtToken.set(null);
+            userInfo.set(null);
+            localStorage.removeItem('jwtToken');
+            localStorage.removeItem('refreshToken');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 </script>
 
 {#if $jwtToken}
     <div class="container mx-auto">
-        <h1>Welcome to My Account</h1>
+        <h1>Welcome to your account</h1>
         {#if $userInfo}
             <p>Email: {$userInfo.email}</p>
-            <!-- Display other user info as needed -->
         {/if}
+        <button on:click={handleLogout} class="mt-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">Logout</button>
     </div>
 {:else}
     <div class="container mx-auto px-4 flex justify-center pt-10 pb-10">
