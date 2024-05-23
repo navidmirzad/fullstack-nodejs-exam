@@ -1,8 +1,10 @@
 <script>
     import "../app.css";
+    import Navigation from "../components/Navigation.svelte";
+    import Footer from "../components/Footer.svelte";
   </script>
   
-  <div class="w-full flex items-center justify-between bg-[#bbb] py-4 pr-52">
+  <!-- <div class="w-full flex items-center justify-between bg-[#bbb] py-4 pr-52">
     <a href="mailto:footyjersey@hotmail.com" class="contact-link pl-52">footyjersey@hotmail.com</a>
     <ul class="flex space-x-4">
       <li><a href="/" class="text-gray-700 hover:text-blue-500">Home</a></li>
@@ -41,13 +43,14 @@
       </ul>
     </nav>
   
-  </div>
-  
+  </div> -->
+  <Navigation />
+
   <main>
     <slot></slot>
   </main>
   
-  <footer class="bottom-0 w-full bg-[#868686]">
+<!--   <footer class="bottom-0 w-full bg-[#868686]">
     <div class="w-full px-8 mx-auto max-w-7xl">
       <div class="grid justify-between grid-cols-1 gap-4 md:grid-cols-2">
         <a href="/" class="block mb-6 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-inherit">
@@ -198,6 +201,6 @@
         </div>
       </div>
     </div>
-  </footer>
-
+  </footer> -->
+  <Footer />
   
