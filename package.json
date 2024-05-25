@@ -4,6 +4,7 @@
     "prettier": "^3.2.5"
   },
   "dependencies": {
-    "svelte-routing": "^2.13.0"
+    "svelte-routing": "^2.13.0",
+    "toastr": "^2.1.4"
   }
 }

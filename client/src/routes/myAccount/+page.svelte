@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
+    import toastr from 'toastr';
+
 
     let jwtToken = writable(null);
     let userInfo = writable(null);
@@ -57,11 +59,12 @@
                 localStorage.setItem('refreshToken', data.refreshToken);
                 jwtToken.set(data.token);
                 userInfo.set(data.user); 
+                toastr.success('Login successful');
             } else {
-                console.error('Login failed:', response.statusText);
+                toastr.warning("Invalid email or password")
             }
         } catch (error) {
-            console.error('Error logging in:', error);
+            toastr.warning("Invalid email or password")
         }
     }
 
@@ -83,10 +86,11 @@
             userInfo.set(null);
             localStorage.removeItem('jwtToken');
             localStorage.removeItem('refreshToken');
+            toastr.info("Logged out successfully")
         }
 
     } catch (error) {
-        console.error('Error:', error);
+        toastr.info("Error occured while logging out")
     }
 }
 

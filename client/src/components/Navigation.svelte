@@ -15,7 +15,7 @@
   <ul class="flex space-x-4">
     <li><a href="/" class="text-gray-700 hover:text-blue-500">Home</a></li>
     <li><a href="/about" class="text-gray-700 hover:text-blue-500">About</a></li>
-    <li><a href="/contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
+    <li><a href="/about" class="text-gray-700 hover:text-blue-500">Contact</a></li>
     <li><a href="/myAccount" class="text-gray-700 hover:text-blue-500">My Account</a></li>
     <li><a href="/wishlist" class="text-gray-700 hover:text-blue-500">Wishlist</a></li>
     <li><a href="/" on:click={toggleCartModal} class="text-gray-700 hover:text-blue-500"><img src="/src/public/images/cart.png" class="w-8 h-auto" alt="shoppingCart" /></a></li>
