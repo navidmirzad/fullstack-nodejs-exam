@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { addToCart } from '$lib/cartUtils.js';
 
   let jersey;
 
@@ -18,7 +19,7 @@
   }
 
 
-  const id = window.location.pathname.split('/').pop(); // Extract the ID from the URL
+  const id = window.location.pathname.split('/').pop(); // Get the last part of the URL
   onMount(async () => {
     jersey = await fetchJersey(id);
   });
@@ -36,7 +37,13 @@
                     </div>
                     <div class="flex -mx-2 mb-4">
                         <div class="w-1/2 px-2">
-                            <button class="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Shopping Cart</button>
+                          <button 
+                          class="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
+                          on:click={() => addToCart(jersey)} 
+                          >
+                          Add to Shopping Cart
+                      </button>
+                      
                         </div>
                         <div class="w-1/2 px-2">
                           <button class="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Wishlist</button>

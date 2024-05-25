@@ -1,25 +1,10 @@
 <script>
     import { cart } from '../stores/shoppingcartstore.js';
     import { onMount } from 'svelte';
-    import toastr from 'toastr';
+    import { removeFromCart } from '../lib/cartUtils.js';
 
     let isCartOpen = false; 
   
-    function removeFromCart(product, jersey) {
-        const currentCart = $cart;
-        const index = currentCart.findIndex(item => item.id === product.id);
-  
-        if (index !== -1) {
-            if (currentCart[index].quantity > 1) {
-                currentCart[index].quantity -= 1;
-            } else {
-                currentCart.splice(index, 1);
-            }
-            toastr.info(`${jersey.playerName} ${jersey.team} jersey removed from cart`);
-            cart.set(currentCart);
-        }
-    }
-
     function checkout() {
         console.log($cart);
         cart.set([]);
