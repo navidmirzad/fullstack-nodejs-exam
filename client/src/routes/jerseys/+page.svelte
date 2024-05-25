@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
   
@@ -58,6 +58,11 @@
       </div>
     </div>
   </div>
-  
-  <div class="w-full pt-5 px-4 mb-8 mx-auto"></div>
-  
+   -->
+
+  <script>
+    import Jerseys from "../../components/Jerseys.svelte"
+  </script>
+
+
+  <Jerseys />
