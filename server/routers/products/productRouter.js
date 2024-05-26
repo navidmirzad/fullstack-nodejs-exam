@@ -26,7 +26,7 @@ router.get("/api/jerseys/:id", async (req, res) => {
   }
 });
 
-router.post("/api/", (req, res) => {
+/* router.post("/api/", (req, res) => {
   // Add your code to create a new product
 });
 
@@ -36,6 +36,6 @@ router.put("/api/:id", (req, res) => {
 
 router.delete("/api/:id", (req, res) => {
   // Add your code to delete a specific product by ID
-});
+}); */
 
 export default router;

@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "DELETE", "PATCH", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization", "Bearer"],
   })
@@ -21,6 +21,9 @@ app.use(authRouter);
 
 import productRouter from "./routers/products/productRouter.js";
 app.use(productRouter);
+
+import stripeRouter from "./routers/stripe/stripeRouter.js";
+app.use(stripeRouter);
 
 const PORT = 8080;
 app.listen(PORT, () => console.log("Server is running on PORT: " + PORT));
