@@ -1,7 +1,7 @@
 # This is the repository for my fullstack nodejs exam.
 
-- The backend is developed in nodejs and express.
-- The frontend is developed in Svelte/SvelteKit & TailwindCSS
+- The backend is developed in nodejs and express. (Server)
+- The frontend is developed in Svelte/SvelteKit & TailwindCSS (Client)
 
 # E-commerce website for FootyJersey
 
