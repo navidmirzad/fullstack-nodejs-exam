@@ -55,40 +55,6 @@ async function createUser(email, password) {
   };
 }
 
-async function createDB() {
-  await pool.query(
-    `CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`
-  );
-
-  await pool.query(`USE ${process.env.MYSQL_DATABASE}`);
-
-  try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL
-      )
-    `);
-
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS tokens (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        accessToken TEXT NOT NULL,
-        refreshToken TEXT NOT NULL,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        email VARCHAR(255),
-        FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
-      )
-    `);
-
-    console.log("Database schema and tables created successfully");
-  } catch (error) {
-    console.error("Error creating database schema and tables:", error);
-    throw error; // Rethrow the error to be caught by the calling function
-  }
-}
-
 export {
   pool,
   createUser,
@@ -96,5 +62,4 @@ export {
   getRefreshTokens,
   getUser,
   deleteRefreshToken,
-  createDB,
 };

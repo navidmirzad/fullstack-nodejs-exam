@@ -25,5 +25,8 @@ app.use(productRouter);
 import stripeRouter from "./routers/stripe/stripeRouter.js";
 app.use(stripeRouter);
 
+import searchRouter from "./routers/search/searchRouter.js";
+app.use(searchRouter);
+
 const PORT = 8080;
 app.listen(PORT, () => console.log("Server is running on PORT: " + PORT));
