@@ -13,6 +13,7 @@
 	function handleSearch(event) {
 		event.preventDefault();
 		goto(`/search?query=${encodeURIComponent(searchQuery)}`);
+		searchQuery = '';
 	}
 </script>
 
