@@ -2,7 +2,7 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
-	import { addToCart } from '../lib/cartUtils.js'; // Import the addToCart function
+	import { addToCart } from '../lib/cartUtils.js'; 
 
 	const jerseys = writable([]);
 
@@ -22,7 +22,7 @@
 <div class="container mx-auto px-4 pb-8">
 	{#if $jerseys.length > 0}
 		<div>
-			<p class="font-bold text-2xl py-4 text-center">POPULAR BEST SELLING FOOTBALL JERSEYS</p>
+			<p class="font-bold text-2xl py-4 text-center">ALL FOOTBALL JERSEYS</p>
 			<div class="flex justify-center">
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 					{#each $jerseys as jersey}

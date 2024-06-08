@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { writable } from 'svelte/store';
+	import { addToCart } from '../../lib/cartUtils.js';
+	import toastr from 'toastr';
 
 	let jerseys = writable([]);
 	let query = '';
@@ -14,7 +16,7 @@
 			const data = await response.json();
 			jerseys.set(data);
 		} catch (error) {
-			console.error('Failed to fetch search results:', error);
+			toastr.error('Failed to fetch search results:', error);
 		}
 	}
 

@@ -24,7 +24,6 @@
 		<li><a href="/about" class="text-gray-700 hover:text-blue-500">About</a></li>
 		<li><a href="/about" class="text-gray-700 hover:text-blue-500">Contact</a></li>
 		<li><a href="/myAccount" class="text-gray-700 hover:text-blue-500">My Account</a></li>
-		<li><a href="/wishlist" class="text-gray-700 hover:text-blue-500">Wishlist</a></li>
 		<li>
 			<a href="#" on:click={toggleCartModal} class="text-gray-700 hover:text-blue-500"
 				><img src="/src/public/images/cart.png" class="w-8 h-auto" alt="shoppingCart" /></a
@@ -63,16 +62,11 @@
 	</div>
 	<nav class="bg-gray-800 text-white py-4 text-xl">
 		<ul class="flex justify-around space-x-4">
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">New</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Men</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Women</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Kids</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Premier League</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">La Liga</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Bundesliga</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Serie A</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Nation</a></li>
-			<li><a href="/" class="hover:bg-gray-700 px-8 py-2 rounded">Players</a></li>
+			<li><a href="/jerseys" class="hover:bg-gray-700 px-8 py-2 rounded">View all products</a></li>
+			<li><a href="/teams" class="hover:bg-gray-700 px-8 py-2 rounded">Teams</a></li>
+			<li>
+				<a href="/nationalities" class="hover:bg-gray-700 px-8 py-2 rounded">Nationalities</a>
+			</li>
 		</ul>
 	</nav>
 </div>

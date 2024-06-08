@@ -19,8 +19,14 @@ app.use(
 import authRouter from "./routers/auth/auth.js";
 app.use(authRouter);
 
+import adressRouter from "./routers/adress/adressRouter.js";
+app.use(adressRouter)
+
 import productRouter from "./routers/products/productRouter.js";
 app.use(productRouter);
+
+import orderRouter from "./routers/orders/orderRouter.js";
+app.use(orderRouter);
 
 import stripeRouter from "./routers/stripe/stripeRouter.js";
 app.use(stripeRouter);
