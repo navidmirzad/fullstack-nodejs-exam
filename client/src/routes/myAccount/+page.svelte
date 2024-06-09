@@ -15,8 +15,7 @@
 	});
 	let addressExists = writable(false);
 
-	async function fetchOrders() {
-		const token = localStorage.getItem('jwtToken');
+	async function fetchOrders(token) {
 		if (!token) return;
 		try {
 			const response = await fetch('http://localhost:8080/api/orders', {
@@ -34,44 +33,13 @@
 		}
 	}
 
-	onMount(() => {
-		const token = localStorage.getItem('jwtToken');
-		jwtToken.set(token);
-		if (token) {
-			checkToken(token);
-			fetchOrders();
-		}
-	});
-
-	async function checkToken(token) {
-		try {
-			const response = await fetch('http://localhost:8080/protected', {
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${token}`
-				}
-			});
-
-			if (response.ok) {
-				const data = await response.json();
-				userInfo.set(data);
-				fetchAddress(data.id);
-			} else {
-				localStorage.removeItem('jwtToken');
-				jwtToken.set(null);
-			}
-		} catch (error) {
-			localStorage.removeItem('jwtToken');
-			jwtToken.set(null);
-		}
-	}
-
-	async function fetchAddress() {
+	async function fetchAddress(token) {
+		if (!token) return;
 		try {
 			const response = await fetch('http://localhost:8080/api/address', {
 				method: 'GET',
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
+					Authorization: `Bearer ${token}`
 				}
 			});
 
@@ -85,9 +53,41 @@
 				}
 			}
 		} catch (error) {
-			console.error('Error fetching address:', error);
+			toastr.error('Error fetching address:', error);
 		}
 	}
+
+	async function checkToken(token) {
+		try {
+			const response = await fetch('http://localhost:8080/protected', {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				userInfo.set(data);
+				await fetchAddress(token); // Ensure we wait for the address fetch
+			} else {
+				localStorage.removeItem('jwtToken');
+				jwtToken.set(null);
+			}
+		} catch (error) {
+			localStorage.removeItem('jwtToken');
+			jwtToken.set(null);
+		}
+	}
+
+	onMount(async () => {
+		const token = localStorage.getItem('jwtToken');
+		jwtToken.set(token);
+		if (token) {
+			await checkToken(token); // Ensure token check is completed before fetching orders
+			await fetchOrders(token);
+		}
+	});
 
 	async function handleAddressSubmit(event) {
 		event.preventDefault();
@@ -100,13 +100,16 @@
 			country: formData.get('country')
 		};
 
+		const token = localStorage.getItem('jwtToken');
+		if (!token) return;
+
 		try {
 			const method = $addressExists ? 'PUT' : 'POST';
 			const response = await fetch('http://localhost:8080/api/address', {
 				method,
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
+					Authorization: `Bearer ${token}`
 				},
 				body: JSON.stringify(address)
 			});
@@ -115,7 +118,6 @@
 				const updatedAddress = await response.json();
 				userAddress.set(updatedAddress);
 				addressExists.set(true);
-				window.location.reload();
 				toastr.success('Address updated successfully');
 			} else {
 				toastr.error('Failed to update address');
@@ -159,6 +161,7 @@
 		event.preventDefault();
 
 		const refreshToken = localStorage.getItem('refreshToken');
+		if (!refreshToken) return;
 
 		try {
 			const response = await fetch('http://localhost:8080/logout', {

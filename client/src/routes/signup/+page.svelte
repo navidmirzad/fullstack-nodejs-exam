@@ -15,15 +15,12 @@
 			});
 
 			if (response.ok) {
-				window.location.href = '/myAccount'; // Redirect to login page
+				window.location.href = '/myAccount';
 			} else {
-				// Handle sign-up failure
-				console.error('Sign-up failed:', response.statusText);
-				// You can display an error message to the user if needed
+				toastr.error('Sign-up failed:', response.statusText);
 			}
 		} catch (error) {
-			console.error('Error signing up:', error);
-			// Handle other errors, e.g., network issues
+			toastr.error('Error signing up:', error.message);
 		}
 	}
 </script>
