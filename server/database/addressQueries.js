@@ -10,12 +10,12 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE,
 }).promise();
 
-async function getAdress(userId) {
+async function getAddress(userId) {
     const [adress] = await pool.query('SELECT * FROM addresses WHERE user_id = ?', [userId]);
     return adress;
 }
 
-async function postAdress(userId, street, city, state, zip_code, country) {
+async function postAddress(userId, street, city, state, zip_code, country) {
     const [result] = await pool.query(
         'INSERT INTO addresses (user_id, street, city, state, zip_code, country) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE street = VALUES(street), city = VALUES(city), state = VALUES(state), zip_code = VALUES(zip_code), country = VALUES(country)',
         [userId, street, city, state, zip_code, country]
@@ -23,7 +23,7 @@ async function postAdress(userId, street, city, state, zip_code, country) {
     return result;
 }
 
-async function updateAdress(userId, street, city, state, zip_code, country) {
+async function updateAddress(userId, street, city, state, zip_code, country) {
     const [result] = await pool.query(
         'UPDATE addresses SET street = ?, city = ?, state = ?, zip_code = ?, country = ? WHERE user_id = ?',
         [street, city, state, zip_code, country, userId]
@@ -31,6 +31,6 @@ async function updateAdress(userId, street, city, state, zip_code, country) {
     return result;
 }
 
-export { pool, postAdress, getAdress, updateAdress };
+export { pool, postAddress, getAddress, updateAddress };
 
 

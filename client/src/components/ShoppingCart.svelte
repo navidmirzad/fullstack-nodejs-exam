@@ -2,18 +2,25 @@
 	import { cart } from '../stores/shoppingCartStore.js';
 	import { onMount } from 'svelte';
 	import { removeFromCart } from '../lib/cartUtils.js';
-	import toastr from 'toastr';
 	import { get } from 'svelte/store';
+	import toastr from 'toastr';
 
 	let isCartOpen = false;
 
 	async function checkout() {
+		const token = localStorage.getItem('jwtToken');
+		if (!token) {
+			window.location.href = '/myAccount';
+			return;
+		}
+
 		try {
 			const $cart = get(cart);
 			const response = await fetch('http://localhost:8080/api/checkout', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`
 				},
 				body: JSON.stringify(
 					$cart.map((item) => ({
@@ -27,8 +34,22 @@
 
 			if (response.ok) {
 				const { url } = await response.json();
-				window.location.href = url;
-				cart.set([]);
+
+				const orderResponse = await fetch('http://localhost:8080/api/orders', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`
+					},
+					body: JSON.stringify({ products: $cart })
+				});
+
+				if (orderResponse.ok) {
+					window.location.href = url;
+					cart.set([]);
+				} else {
+					toastr.error('Order could not be saved');
+				}
 			} else {
 				toastr.error('Checkout failed');
 			}

@@ -20,9 +20,40 @@ async function createOrder(userId, products) {
     return orderResult;
 }
 
-async function getOrders() {
-    const [orders] = await pool.query("SELECT * FROM orders");
-    return orders;
+async function getOrders(userId) {
+  const [orders] = await pool.query(
+      `SELECT orders.id as order_id, orders.order_date, orders.quantity, 
+              products.id as product_id, products.name as product_name, products.priceDKK, 
+              products.team, products.playerName 
+       FROM orders 
+       JOIN products ON orders.product_id = products.id 
+       WHERE orders.user_id = ?`, 
+      [userId]
+  );
+
+  const formattedOrders = orders.reduce((acc, order) => {
+      const orderIndex = acc.findIndex(o => o.id === order.order_id);
+      const product = {
+          id: order.product_id,
+          name: order.product_name,
+          priceDKK: order.priceDKK,
+          team: order.team,
+          playerName: order.playerName,
+          quantity: order.quantity,
+      };
+      if (orderIndex > -1) {
+          acc[orderIndex].products.push(product);
+      } else {
+          acc.push({
+              id: order.order_id,
+              order_date: order.order_date,
+              products: [product],
+          });
+      }
+      return acc;
+  }, []);
+  
+  return formattedOrders;
 }
 
 

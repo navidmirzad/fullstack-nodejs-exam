@@ -5,6 +5,7 @@
 
 	let jwtToken = writable(null);
 	let userInfo = writable(null);
+	let orders = writable([]);
 	let userAddress = writable({
 		street: '',
 		city: '',
@@ -14,11 +15,33 @@
 	});
 	let addressExists = writable(false);
 
+	async function fetchOrders() {
+		const token = localStorage.getItem('jwtToken');
+		if (!token) return;
+		try {
+			const response = await fetch('http://localhost:8080/api/orders', {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			});
+			if (response.ok) {
+				const data = await response.json();
+				orders.set(data);
+			} else {
+				toastr.error('Failed to fetch orders');
+			}
+		} catch (error) {
+			toastr.error('Failed to fetch orders:', error);
+		}
+	}
+
 	onMount(() => {
 		const token = localStorage.getItem('jwtToken');
 		jwtToken.set(token);
 		if (token) {
 			checkToken(token);
+			fetchOrders();
 		}
 	});
 
@@ -34,7 +57,7 @@
 			if (response.ok) {
 				const data = await response.json();
 				userInfo.set(data);
-				fetchAddress(data.id); // Fetch address when user information is loaded
+				fetchAddress(data.id);
 			} else {
 				localStorage.removeItem('jwtToken');
 				jwtToken.set(null);
@@ -173,7 +196,38 @@
 			>
 		</div>
 
-		<form on:submit={handleAddressSubmit} class="bg-[#d6d6d6] p-4 mb-8 rounded-lg shadow-md">
+		{#if $orders.length === 0}
+			<p class="text-center text-gray-500 mt-4">You have no orders.</p>
+		{:else}
+			<div class="max-w-4xl mx-auto p-4">
+				<h2 class="text-2xl font-bold text-center mb-6">Order History</h2>
+				<ul>
+					{#each $orders as order}
+						<li class="border-b border-gray-300 py-4">
+							<div class="flex flex-col mb-4">
+								<span class="font-semibold text-lg text-gray-800">Order ID: {order.id}</span>
+								<span class="text-gray-600"
+									>Order Date: {new Date(order.order_date).toLocaleString()}</span
+								>
+							</div>
+							<ul class="ml-4">
+								{#each order.products as product}
+									<li class="mb-2">
+										<div class="flex flex-col bg-gray-100 p-3 rounded shadow-sm">
+											<span class="font-semibold text-gray-900">{product.playerName}</span>
+											<span class="text-gray-700">{product.team}</span>
+											<span class="text-gray-600">{product.priceDKK} DKK x {product.quantity}</span>
+										</div>
+									</li>
+								{/each}
+							</ul>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
+
+		<form on:submit={handleAddressSubmit} class="bg-[#acacac] p-4 mb-8 rounded-lg shadow-md">
 			<h2 class="text-xl font-semibold mt-6 mb-4">Address</h2>
 			<div class="mb-4">
 				<label for="street" class="block text-sm font-medium text-gray-700">Street</label>

@@ -19,8 +19,8 @@ app.use(
 import authRouter from "./routers/auth/auth.js";
 app.use(authRouter);
 
-import adressRouter from "./routers/adress/adressRouter.js";
-app.use(adressRouter)
+import addressRouter from "./routers/address/addressRouter.js";
+app.use(addressRouter)
 
 import productRouter from "./routers/products/productRouter.js";
 app.use(productRouter);
