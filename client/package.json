@@ -50,6 +50,7 @@
 	"dependencies": {
 		"bootstrap": "^5.3.3",
 		"mailto": "^0.1.2",
+		"socket.io-client": "^4.7.5",
 		"svelte-routing": "^2.13.0"
 	}
 }

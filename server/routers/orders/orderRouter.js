@@ -15,13 +15,15 @@ router.get('/api/orders', authenticateToken, async (req, res) => {
 });
 
 router.post('/api/orders', authenticateToken, async (req, res) => {
-    const userId = req.user.id;  
+    const userId = req.user.id;
     const { products } = req.body;
     try {
-        const order = await createOrder(userId, products);
-        res.status(201).json(order);
+      const order = await createOrder(userId, products);
+      const io = req.app.get('io');
+      io.emit('orderCreated', order);
+      res.status(201).json(order);
     } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error' });
+      res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 

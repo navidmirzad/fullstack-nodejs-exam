@@ -62,11 +62,7 @@
 	</div>
 	<nav class="bg-gray-800 text-white py-4 text-xl">
 		<ul class="flex justify-around space-x-4">
-			<li><a href="/jerseys" class="hover:bg-gray-700 px-8 py-2 rounded">View all products</a></li>
-			<li><a href="/teams" class="hover:bg-gray-700 px-8 py-2 rounded">Teams</a></li>
-			<li>
-				<a href="/nationalities" class="hover:bg-gray-700 px-8 py-2 rounded">Nationalities</a>
-			</li>
+			<li><p>FootyJersey</p></li>
 		</ul>
 	</nav>
 </div>

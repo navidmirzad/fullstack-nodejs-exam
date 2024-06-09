@@ -28,8 +28,6 @@
 			if (response.ok) {
 				const data = await response.json();
 				orders.set(data);
-			} else {
-				toastr.error('Failed to fetch orders');
 			}
 		} catch (error) {
 			toastr.error('Failed to fetch orders:', error);
