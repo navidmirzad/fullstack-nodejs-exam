@@ -23,6 +23,10 @@ router.use(bodyParser.urlencoded({ extended: true }));
 const JWT_SECRET = process.env.JWT_SECRET;
 const REFRESH_JWT_SECRET = process.env.REFRESH_JWT_SECRET;
 
+router.get("/protected", authenticateToken, (req, res) => {
+  res.status(200).json({ email: req.user.email });
+});
+
 router.post("/tokens", async (req, res) => {
   const refreshToken = req.body.token;
   if (!refreshToken) return res.sendStatus(401);
@@ -46,10 +50,6 @@ router.post("/tokens", async (req, res) => {
     console.error("Error checking refresh token:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-});
-
-router.get("/protected", authenticateToken, (req, res) => {
-  res.status(200).json({ email: req.user.email });
 });
 
 router.post("/signup", async (req, res) => {
