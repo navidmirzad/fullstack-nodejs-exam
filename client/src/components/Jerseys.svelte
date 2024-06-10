@@ -2,7 +2,7 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
-	import { addToCart } from '../lib/cartUtils.js'; 
+	import { addToCart } from '../lib/cartUtils.js';
 
 	const jerseys = writable([]);
 

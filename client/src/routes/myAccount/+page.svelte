@@ -84,7 +84,7 @@
 		const token = localStorage.getItem('jwtToken');
 		jwtToken.set(token);
 		if (token) {
-			await checkToken(token); // Ensure token check is completed before fetching orders
+			await checkToken(token);
 			await fetchOrders(token);
 		}
 	});
