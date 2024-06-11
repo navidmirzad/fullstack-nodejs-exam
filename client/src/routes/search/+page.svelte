@@ -24,7 +24,7 @@
 		fetchSearchResults();
 	});
 
-	$: $page.url.search, fetchSearchResults(); // Fetch results whenever the search query changes
+	$: $page.url.search, fetchSearchResults(); 
 </script>
 
 <div class="container mx-auto px-4 pb-8">
